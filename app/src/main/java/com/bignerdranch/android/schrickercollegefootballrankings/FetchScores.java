@@ -22,9 +22,9 @@ public class FetchScores {
                 return null;
             }
 
-            int bytesRead = 0;
+            int bytesRead;
             byte[] buffer = new byte[1024];
-            while ((bytesRead = in.read()) > 0) {
+            while ((bytesRead = in.read(buffer)) > 0) {
                 out.write(buffer, 0, bytesRead);
             }
 
@@ -33,5 +33,9 @@ public class FetchScores {
         } finally {
             connection.disconnect();
         }
+    }
+
+    public String getUrl(String urlSpec) throws IOException {
+        return new String(getUrlBytes(urlSpec));
     }
 }
